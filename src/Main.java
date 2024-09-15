@@ -202,7 +202,7 @@ public class Main {
 
                     if(searchBook(bookID) == null)
                     {
-                        System.out.println("Book not found.");
+                        throw new BookNotFound("Book not found.");
                     }
                     break;
 
