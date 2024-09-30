@@ -19,7 +19,7 @@ public class Main {
         }
     }
 
-    public static void updateQuantity(String bookID, int quantity) throws InvalidQuantity, BookNotFound
+    public static void updateQuantity(String bookID, int quantity) throws InvalidQuantity, BookNotFound, InputMismatchException
     {
         Book b = searchBook(bookID);
         if(quantity<0)
@@ -171,38 +171,57 @@ public class Main {
 
             switch(opt) {
                 case 1:
-                    System.out.print("Enter book name: ");
-                    scan.nextLine();
-                    bookName = scan.nextLine();
+                    try {
+                        System.out.print("Enter book name: ");
+                        scan.nextLine();
+                        bookName = scan.nextLine();
 
-                    System.out.print("Enter book id: ");
-                    bookID = scan.nextLine();
+                        System.out.print("Enter book id: ");
+                        bookID = scan.nextLine();
 
-                    System.out.print("Enter quantity: ");
-                    quantity = scan.nextInt();
+                        System.out.print("Enter quantity: ");
+                        quantity = scan.nextInt();
 
-                    addBook(bookName, bookID, quantity);
+                        addBook(bookName, bookID, quantity);
+
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        scan.nextLine();
+                    }
                     break;
 
                 case 2:
-                    System.out.print("Enter book id: ");
-                    scan.nextLine();
-                    bookID = scan.nextLine();
+                    try {
+                        System.out.print("Enter book id: ");
+                        scan.nextLine();
+                        bookID = scan.nextLine();
 
-                    System.out.print("Enter quantity: ");
-                    quantity = scan.nextInt();
+                        System.out.print("Enter quantity: ");
+                        quantity = scan.nextInt();
 
-                    updateQuantity(bookID, quantity);
+                        updateQuantity(bookID, quantity);
+
+                    } catch (Exception e)
+                    {
+                        System.out.println(e.getMessage());
+                        scan.nextLine();
+                    }
                     break;
 
                 case 3:
-                    System.out.print("Enter book id: ");
-                    scan.nextLine();
-                    bookID = scan.nextLine();
+                    try {
+                        System.out.print("Enter book id: ");
+                        scan.nextLine();
+                        bookID = scan.nextLine();
 
-                    if(searchBook(bookID) == null)
+                        if(searchBook(bookID) == null)
+                        {
+                            throw new BookNotFound("Book not found.");
+                        }
+
+                    } catch (Exception e)
                     {
-                        throw new BookNotFound("Book not found.");
+                        System.out.println(e.getMessage());
                     }
                     break;
 
@@ -218,7 +237,11 @@ public class Main {
                     System.out.print("Enter Student ID: ");
                     studentID = scan.nextLine();
 
-                    registerStudent(studentName, studentID);
+                    try {
+                        registerStudent(studentName, studentID);
+                    } catch (StudentAlreadyExists e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case 6:
@@ -232,7 +255,11 @@ public class Main {
                     System.out.print("Enter your ID: ");
                     studentID = scan.nextLine();
 
-                    checkOut(bookID, studentID);
+                    try {
+                        checkOut(bookID, studentID);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case 8:
@@ -242,7 +269,11 @@ public class Main {
                     System.out.print("Enter your ID: ");
                     studentID = scan.nextLine();
 
-                    checkIn(bookID, studentID);
+                    try {
+                        checkIn(bookID, studentID);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case 9:
