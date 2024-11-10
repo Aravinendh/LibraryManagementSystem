@@ -1,0 +1,1 @@
+class StudentAlreadyExists(msg: String?) : RuntimeException(msg)
